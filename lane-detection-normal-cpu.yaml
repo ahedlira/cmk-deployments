@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: cmk-lane-detection-normal
+  name: cmk-lane-detection-normal
+  namespace: cmk-namespace
+spec:
+  selector:
+   matchLabels:
+    app: cmk-lane-detection-normal
+  replicas: 0
+  template:
+    metadata:
+      labels:
+        app: cmk-lane-detection-normal
+    spec:
+     containers:
+      - name: cmk-lane-detection-normal
+        image: hrabhijith/lane-detection:normal
+        ports:
+         - containerPort: 5005
+           hostPort: 5005
+        imagePullPolicy: IfNotPresent
+        securityContext:
+         allowPrivilegeEscalation: true
+         readOnlyRootFilesystem: true
+         runAsNonRoot: false
+         privileged: true
+         capabilities:
+          drop:
+           - all
+     nodeSelector:
+      kubernetes.io/hostname: "nuc01"

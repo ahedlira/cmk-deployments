@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: cmk-lane-detection-shared
+  name: cmk-lane-detection-shared
+# Consumed by mutating webhook
+  annotations:
+    cmk.intel.com/mutate: "true" # accepted values to trigger mutation: "true", "True", "1"
+  namespace: cmk-namespace
+spec:
+  selector:
+   matchLabels:
+    app: cmk-lane-detection-shared
+  replicas: 0
+  template:
+    metadata:
+      labels:
+        app: cmk-lane-detection-shared
+    spec:
+     serviceAccountName: cmk-serviceaccount
+     containers:
+      - name: cmk-lane-detection-shared
+        image: hrabhijith/lane-detection:shared
+        ports:
+         - containerPort: 5007
+           hostPort: 5007
+        env:
+        - name: CMK_NUM_CORES
+          value: "1"
+        imagePullPolicy: IfNotPresent
+        resources:
+         requests:
+          cmk.intel.com/exclusive-cores: '1'
+         limits:
+          cmk.intel.com/exclusive-cores: '1'
+        volumeMounts:
+         - name: tmp
+           mountPath: "/tmp"
+        securityContext:
+         allowPrivilegeEscalation: true
+         readOnlyRootFilesystem: true
+         runAsNonRoot: false
+         privileged: true
+         capabilities:
+          drop:
+           - all
+     volumes:
+      - hostPath:
+         path: "/tmp"
+        name: tmp
+     nodeSelector:
+      kubernetes.io/hostname: "alderlake"
