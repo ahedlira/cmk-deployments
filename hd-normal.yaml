@@ -12,14 +12,14 @@ spec:
   selector:
    matchLabels:
     app: hd-normal
-  replicas: 1
+  replicas: 0
   template:
     metadata:
       labels:
         app: hd-normal
     spec:
      containers:
-      - name: hd-exclusive
+      - name: hd-normal
         image: hrabhijith2/playhd:normal
         imagePullPolicy: Always
         ports:
