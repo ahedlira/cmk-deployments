@@ -58,5 +58,16 @@ spec:
       - hostPath:
          path: "/tmp"
         name: tmp
+      - hostPath:
+      # Change this to modify the CMK installation dir in the host file system.
+         path: "/opt/bin"
+        name: cmk-install-dir
+      - hostPath:
+         path: "/proc"
+        name: cmk-host-proc
+      - hostPath:
+       # Change this to modify the CMK config dir in the host file system.
+         path: "/etc/cmk"
+        name: cmk-conf-dir
      nodeSelector:
       kubernetes.io/hostname: "alderlake"
