@@ -70,4 +70,4 @@ spec:
          path: "/etc/cmk"
         name: cmk-conf-dir
      nodeSelector:
-      kubernetes.io/hostname: "nuc01"
+      kubernetes.io/hostname: "alderlake"
