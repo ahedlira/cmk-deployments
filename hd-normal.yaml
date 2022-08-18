@@ -23,8 +23,8 @@ spec:
         image: hrabhijith2/playhd:normal
         imagePullPolicy: Always
         ports:
-         - containerPort: 5005
-           hostPort: 5005
+         - containerPort: 5003
+           hostPort: 5006
         volumeMounts:
          - name: tmp
            mountPath: "/tmp"
