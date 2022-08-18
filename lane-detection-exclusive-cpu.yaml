@@ -39,6 +39,13 @@ spec:
         volumeMounts:
          - name: tmp
            mountPath: "/tmp"
+         - mountPath: "/host/proc"
+           name: cmk-host-proc
+           readOnly: true
+         - mountPath: "/opt/bin"
+           name: cmk-install-dir
+         - mountPath: "/etc/cmk"
+           name: cmk-conf-dir
         securityContext:
          allowPrivilegeEscalation: true
          readOnlyRootFilesystem: true
