@@ -28,6 +28,8 @@ spec:
         env:
         - name: CMK_NUM_CORES
           value: "1"
+        - name: CMK_PROC_FS
+          value: "/host/proc"
         imagePullPolicy: IfNotPresent
         resources:
          requests:
