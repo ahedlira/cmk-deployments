@@ -12,7 +12,7 @@ spec:
   selector:
    matchLabels:
     app: hd-normal
-  replicas: 0
+  replicas: 1
   template:
     metadata:
       labels:
@@ -23,8 +23,8 @@ spec:
         image: hrabhijith2/playhd:normal
         imagePullPolicy: Always
         ports:
-         - containerPort: 5004
-           hostPort: 5004
+         - containerPort: 5005
+           hostPort: 5005
         volumeMounts:
          - name: tmp
            mountPath: "/tmp"
