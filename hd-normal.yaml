@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: hd-normal
+  name: hd-normal
+# Consumed by mutating webhook
+  annotations:
+    cmk.intel.com/mutate: "true" # accepted values to trigger mutation: "true", "True", "1"
+  namespace: cmk-namespace
+spec:
+  selector:
+   matchLabels:
+    app: hd-normal
+  replicas: 0
+  template:
+    metadata:
+      labels:
+        app: hd-normal
+    spec:
+     containers:
+      - name: hd-exclusive
+        image: hrabhijith2/playhd:normal
+        imagePullPolicy: Always
+        ports:
+         - containerPort: 5004
+           hostPort: 5004
+        volumeMounts:
+         - name: tmp
+           mountPath: "/tmp"
+        securityContext:
+         allowPrivilegeEscalation: true
+         readOnlyRootFilesystem: true
+         runAsNonRoot: false
+         privileged: true
+         capabilities:
+          drop:
+           - all
+     volumes:
+      - hostPath:
+         path: "/tmp"
+        name: tmp
+     nodeSelector:
+       kubernetes.io/hostname: "nuc01"
