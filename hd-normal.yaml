@@ -12,7 +12,7 @@ spec:
   selector:
    matchLabels:
     app: hd-normal
-  replicas: 0
+  replicas: 1
   template:
     metadata:
       labels:
@@ -38,7 +38,7 @@ spec:
            - all
      volumes:
       - hostPath:
-         path: "/tmp"
+         path: "/home/devuser/Desktop/"
         name: tmp
      nodeSelector:
        kubernetes.io/hostname: "nuc01"
