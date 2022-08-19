@@ -12,7 +12,7 @@ spec:
   selector:
    matchLabels:
     app: cmk-lane-detection-exclusive
-  replicas: 0
+  replicas: 1
   template:
     metadata:
       labels:
@@ -70,4 +70,4 @@ spec:
          path: "/etc/cmk"
         name: cmk-conf-dir
      nodeSelector:
-      kubernetes.io/hostname: "alderlake"
+      kubernetes.io/hostname: "nuc01"
